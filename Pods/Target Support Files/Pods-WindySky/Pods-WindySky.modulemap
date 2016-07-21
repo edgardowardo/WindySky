@@ -1,0 +1,6 @@
+framework module Pods_WindySky {
+  umbrella header "Pods-WindySky-umbrella.h"
+
+  export *
+  module * { export * }
+}
