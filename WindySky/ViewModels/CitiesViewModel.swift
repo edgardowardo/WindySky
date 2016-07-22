@@ -57,7 +57,7 @@ class CitiesViewModel {
     private func getNearbies(fromLocation location: Coordinate?, andSearchText searchText : String?) -> [Current] {
         if let loc = location {
             let latitude = loc.lat, longitude = loc.lon
-            let searchDistance = 2.0
+            let searchDistance = 1.0
             let minLat = latitude - (searchDistance / 69)
             let maxLat = latitude + (searchDistance / 69)
             let minLon = longitude - searchDistance / fabs(cos(latitude.degreesToRadians)*69)

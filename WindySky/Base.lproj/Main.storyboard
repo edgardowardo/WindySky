@@ -36,8 +36,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFB-Hv-LUc" customClass="RadarChartView" customModule="Charts">
                                 <rect key="frame" x="20" y="64" width="560" height="386"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ti-cY-Mxv">
-                                        <rect key="frame" x="541" y="8" width="25" height="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ti-cY-Mxv">
+                                        <rect key="frame" x="527" y="8" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="3h1-Iu-3qd"/>
+                                            <constraint firstAttribute="height" constant="25" id="UPm-WH-6Bl"/>
+                                        </constraints>
                                         <state key="normal" title="Button" image="icon-info"/>
                                         <connections>
                                             <action selector="showInfo:" destination="JEX-9P-axG" eventType="touchUpInside" id="gMb-5f-jWm"/>
@@ -45,6 +49,10 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="4Ti-cY-Mxv" firstAttribute="top" secondItem="eFB-Hv-LUc" secondAttribute="top" constant="8" id="klq-T8-oKM"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Ti-cY-Mxv" secondAttribute="trailing" constant="8" id="ygC-jR-QgW"/>
+                                </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dw-f68">
                                 <rect key="frame" x="0.0" y="450" width="600" height="150"/>
@@ -104,9 +112,9 @@
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="arS-zX-guU">
                             <rect key="frame" x="0.0" y="130" width="600" height="171"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <string key="text">Windy Sky helps you organise your cities by searching from the bar above and clicking star to save them as favourites. Favourites will appear first in the list followed by nearby cities then recently inspected cities. Nearby cities are approximately 3 km away.</string>
+                            <string key="text">Windy Sky helps you organise your cities by searching from the bar above and clicking star to save them as favourites. Favourites will appear first in the list followed by nearby cities then recently inspected cities.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
@@ -121,14 +129,14 @@
                                             <rect key="frame" x="15" y="5" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rbB-Tx-rqg">
                                             <rect key="frame" x="15" y="25" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -145,7 +153,9 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Windy Sky" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="Windy Sky" id="Zdf-7t-Un8">
+                        <barButtonItem key="backBarButtonItem" title=" " id="uUV-rf-ibU"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>

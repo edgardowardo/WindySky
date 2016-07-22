@@ -104,7 +104,7 @@ class CitiesViewController: UITableViewController {
                     if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
                         controller.viewModel?.hudDelegate = appDelegate
                     }
-                    controller.title = self.viewModel.title
+                    controller.title = current!.name
                     controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                     controller.navigationItem.leftItemsSupplementBackButton = true
                 }
