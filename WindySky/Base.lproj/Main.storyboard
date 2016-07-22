@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -31,10 +32,48 @@
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="woF-dw-f68">
+                                <rect key="frame" x="0.0" y="450" width="600" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="D9z-kJ-7Qm"/>
+                                </constraints>
+                                <collectionViewLayout key="collectionViewLayout" id="ZpO-mx-ru9"/>
+                                <cells/>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFB-Hv-LUc" customClass="RadarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="64" width="600" height="386"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ti-cY-Mxv">
+                                        <rect key="frame" x="561" y="8" width="25" height="25"/>
+                                        <state key="normal" title="Button" image="icon-info"/>
+                                        <connections>
+                                            <action selector="showInfo:" destination="JEX-9P-axG" eventType="touchUpInside" id="gMb-5f-jWm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="woF-dw-f68" secondAttribute="trailing" constant="-20" id="9pN-px-z3N"/>
+                            <constraint firstItem="woF-dw-f68" firstAttribute="top" secondItem="eFB-Hv-LUc" secondAttribute="bottom" id="K1D-hA-H4M"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eFB-Hv-LUc" secondAttribute="trailing" constant="-20" id="NJp-qb-jOQ"/>
+                            <constraint firstItem="woF-dw-f68" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="NgC-WG-l6i"/>
+                            <constraint firstItem="eFB-Hv-LUc" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="OPc-sL-fe7"/>
+                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="woF-dw-f68" secondAttribute="bottom" id="ZuM-ro-zpr"/>
+                            <constraint firstItem="eFB-Hv-LUc" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="lcL-FZ-wfh"/>
+                            <constraint firstItem="woF-dw-f68" firstAttribute="top" secondItem="eFB-Hv-LUc" secondAttribute="bottom" id="tvz-Ld-wGd"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <connections>
+                        <outlet property="forecastsView" destination="woF-dw-f68" id="xia-cT-Uc2"/>
+                        <outlet property="radarChart" destination="eFB-Hv-LUc" id="tdl-eF-08Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
@@ -65,7 +104,7 @@
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="arS-zX-guU">
                             <rect key="frame" x="0.0" y="130" width="600" height="171"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <string key="text">Windy Sky helps you organise your cities by searching from the bar above and clicking star to save them as favourites. Favourites will appear first in the list followed by nearby cities then recently inspected cities. Nearby cities are approximately 2 km away.</string>
+                            <string key="text">Windy Sky helps you organise your cities by searching from the bar above and clicking star to save them as favourites. Favourites will appear first in the list followed by nearby cities then recently inspected cities. Nearby cities are approximately 3 km away.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -128,6 +167,9 @@
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-info" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
