@@ -9,12 +9,11 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
-
+import UIKit
 
 public class ChartBaseDataSet: NSObject, IChartDataSet
 {
@@ -23,8 +22,8 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
         super.init()
         
         // default color
-        colors.append(NSUIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
-        valueColors.append(NSUIColor.blackColor())
+        colors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
+        valueColors.append(UIColor.blackColor())
     }
     
     public init(label: String?)
@@ -32,8 +31,8 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
         super.init()
         
         // default color
-        colors.append(NSUIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
-        valueColors.append(NSUIColor.blackColor())
+        colors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
+        valueColors.append(UIColor.blackColor())
         
         self.label = label
     }
@@ -71,19 +70,9 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
         fatalError("yValForXIndex is not implemented in ChartBaseDataSet")
     }
     
-    public func yValsForXIndex(x: Int) -> [Double]
-    {
-        fatalError("yValsForXIndex is not implemented in ChartBaseDataSet")
-    }
-    
     public func entryForIndex(i: Int) -> ChartDataEntry?
     {
         fatalError("entryForIndex is not implemented in ChartBaseDataSet")
-    }
-    
-    public func entryForXIndex(x: Int, rounding: ChartDataSetRounding) -> ChartDataEntry?
-    {
-        fatalError("entryForXIndex is not implemented in ChartBaseDataSet")
     }
     
     public func entryForXIndex(x: Int) -> ChartDataEntry?
@@ -91,12 +80,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
         fatalError("entryForXIndex is not implemented in ChartBaseDataSet")
     }
     
-    public func entriesForXIndex(x: Int) -> [ChartDataEntry]
-    {
-        fatalError("entriesForXIndex is not implemented in ChartBaseDataSet")
-    }
-    
-    public func entryIndex(xIndex x: Int, rounding: ChartDataSetRounding) -> Int
+    public func entryIndex(xIndex x: Int) -> Int
     {
         fatalError("entryIndex is not implemented in ChartBaseDataSet")
     }
@@ -162,10 +146,10 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     
     /// All the colors that are used for this DataSet.
     /// Colors are reused as soon as the number of Entries the DataSet represents is higher than the size of the colors array.
-    public var colors = [NSUIColor]()
+    public var colors = [UIColor]()
     
     /// List representing all colors that are used for drawing the actual values for this DataSet
-    public var valueColors = [NSUIColor]()
+    public var valueColors = [UIColor]()
 
     /// The label string that describes the DataSet.
     public var label: String? = "DataSet"
@@ -175,9 +159,8 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     
     /// - returns: the color at the given index of the DataSet's color array.
     /// This prevents out-of-bounds by performing a modulus on the color index, so colours will repeat themselves.
-    public func colorAt(index: Int) -> NSUIColor
+    public func colorAt(var index: Int) -> UIColor
     {
-        var index = index
         if (index < 0)
         {
             index = 0
@@ -193,7 +176,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     
     /// Adds a new color to the colors array of the DataSet.
     /// - parameter color: the color to add
-    public func addColor(color: NSUIColor)
+    public func addColor(color: UIColor)
     {
         colors.append(color)
     }
@@ -201,7 +184,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     /// Sets the one and **only** color that should be used for this DataSet.
     /// Internally, this recreates the colors array and adds the specified color.
     /// - parameter color: the color to set
-    public func setColor(color: NSUIColor)
+    public func setColor(color: UIColor)
     {
         colors.removeAll(keepCapacity: false)
         colors.append(color)
@@ -210,7 +193,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     /// Sets colors to a single color a specific alpha value.
     /// - parameter color: the color to set
     /// - parameter alpha: alpha to apply to the set `color`
-    public func setColor(color: NSUIColor, alpha: CGFloat)
+    public func setColor(color: UIColor, alpha: CGFloat)
     {
         setColor(color.colorWithAlphaComponent(alpha))
     }
@@ -218,7 +201,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     /// Sets colors with a specific alpha value.
     /// - parameter colors: the colors to set
     /// - parameter alpha: alpha to apply to the set `colors`
-    public func setColors(colors: [NSUIColor], alpha: CGFloat)
+    public func setColors(colors: [UIColor], alpha: CGFloat)
     {
         var colorsWithAlpha = colors
         
@@ -262,7 +245,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     /// Sets/get a single color for value text.
     /// Setting the color clears the colors array and adds a single color.
     /// Getting will return the first color in the array.
-    public var valueTextColor: NSUIColor
+    public var valueTextColor: UIColor
     {
         get
         {
@@ -276,9 +259,8 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     }
     
     /// - returns: the color at the specified index that is used for drawing the values inside the chart. Uses modulus internally.
-    public func valueTextColorAt(index: Int) -> NSUIColor
+    public func valueTextColorAt(var index: Int) -> UIColor
     {
-        var index = index
         if (index < 0)
         {
             index = 0
@@ -287,7 +269,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     }
     
     /// the font for the value-text labels
-    public var valueFont: NSUIFont = NSUIFont.systemFontOfSize(7.0)
+    public var valueFont: UIFont = UIFont.systemFontOfSize(7.0)
     
     /// Set this to true to draw y-values on the chart
     public var drawValuesEnabled = true
@@ -318,7 +300,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     {
         var desc = description + ":"
         
-        for i in 0 ..< self.entryCount
+        for (var i = 0, count = self.entryCount; i < count; i++)
         {
             desc += "\n" + (self.entryForIndex(i)?.description ?? "")
         }

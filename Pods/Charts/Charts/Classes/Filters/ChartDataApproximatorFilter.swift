@@ -9,7 +9,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -110,7 +110,7 @@ public class ChartDataApproximatorFilter: ChartDataBaseFilter
         
         // create a new array with series, only take the kept ones
         var reducedEntries = [ChartDataEntry]()
-        for i in 0 ..< entries.count
+        for (var i = 0; i < entries.count; i++)
         {
             if (keep[i])
             {
@@ -143,7 +143,7 @@ public class ChartDataApproximatorFilter: ChartDataBaseFilter
         let firstEntry = entries[start]
         let lastEntry = entries[end]
         
-        for i in start + 1 ..< end
+        for (var i = start + 1; i < end; i++)
         {
             let dist = calcAngleBetweenLines(firstEntry, end1: lastEntry, start2: firstEntry, end2: entries[i])
             

@@ -6,7 +6,7 @@ target 'WindySky' do
     pod 'Alamofire'
     pod 'RealmSwift'
     pod 'MBProgressHUD'
-    pod 'Charts'
+    pod 'Charts', '2.2.2'
     pod 'UIColor+FlatColors'    
 end
 

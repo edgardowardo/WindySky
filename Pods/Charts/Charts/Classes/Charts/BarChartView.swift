@@ -8,7 +8,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -23,7 +23,7 @@ public class BarChartView: BarLineChartViewBase, BarChartDataProvider
     /// if set to true, all values are drawn above their bars, instead of below their top
     private var _drawValueAboveBarEnabled = true
 
-    /// if set to true, a grey area is drawn behind each bar that indicates the maximum value
+    /// if set to true, a grey area is darawn behind each bar that indicates the maximum value
     private var _drawBarShadowEnabled = false
     
     internal override func initialize()
@@ -35,26 +35,29 @@ public class BarChartView: BarLineChartViewBase, BarChartDataProvider
         
         self.highlighter = BarChartHighlighter(chart: self)
         
-        _xAxis._axisMinimum = -0.5
+        _chartXMin = -0.5
     }
     
     internal override func calcMinMax()
     {
         super.calcMinMax()
         
-        guard let data = _data else { return }
+        if (_data === nil)
+        {
+            return
+        }
         
-        let barData = data as! BarChartData
+        let barData = _data as! BarChartData
         
         // increase deltax by 1 because the bars have a width of 1
-        _xAxis.axisRange += 0.5
+        _deltaX += 0.5
         
         // extend xDelta to make space for multiple datasets (if ther are one)
-        _xAxis.axisRange *= Double(data.dataSetCount)
+        _deltaX *= CGFloat(_data.dataSetCount)
         
         let groupSpace = barData.groupSpace
-        _xAxis.axisRange += Double(barData.xValCount) * Double(groupSpace)
-        _xAxis._axisMaximum = _xAxis.axisRange - _xAxis._axisMinimum
+        _deltaX += CGFloat(barData.xValCount) * groupSpace
+        _chartXMax = Double(_deltaX) - _chartXMin
     }
     
     /// - returns: the Highlight object (contains x-index and DataSet index) of the selected value at the given touch point inside the BarChart.
@@ -62,19 +65,22 @@ public class BarChartView: BarLineChartViewBase, BarChartDataProvider
     {
         if _data === nil
         {
-            Swift.print("Can't select by touch. No data set.")
+            print("Can't select by touch. No data set.", terminator: "\n")
             return nil
         }
-
-        return self.highlighter?.getHighlight(x: pt.x, y: pt.y)
+        
+        return self.highlighter?.getHighlight(x: Double(pt.x), y: Double(pt.y))
     }
         
     /// - returns: the bounding box of the specified Entry in the specified DataSet. Returns null if the Entry could not be found in the charts data.
     public func getBarBounds(e: BarChartDataEntry) -> CGRect
     {
-        guard let
-            set = _data?.getDataSetForEntry(e) as? IBarChartDataSet
-            else { return CGRectNull }
+        let set = _data.getDataSetForEntry(e) as! IBarChartDataSet!
+        
+        if (set === nil)
+        {
+            return CGRectNull
+        }
         
         let barspace = set.barSpace
         let y = CGFloat(e.value)
@@ -97,7 +103,7 @@ public class BarChartView: BarLineChartViewBase, BarChartDataProvider
     
     public override var lowestVisibleXIndex: Int
     {
-        let step = CGFloat(_data?.dataSetCount ?? 0)
+        let step = CGFloat(_data.dataSetCount)
         let div = (step <= 1.0) ? 1.0 : step + (_data as! BarChartData).groupSpace
         
         var pt = CGPoint(x: _viewPortHandler.contentLeft, y: _viewPortHandler.contentBottom)
@@ -108,7 +114,7 @@ public class BarChartView: BarLineChartViewBase, BarChartDataProvider
 
     public override var highestVisibleXIndex: Int
     {
-        let step = CGFloat(_data?.dataSetCount ?? 0)
+        let step = CGFloat(_data.dataSetCount)
         let div = (step <= 1.0) ? 1.0 : step + (_data as! BarChartData).groupSpace
         
         var pt = CGPoint(x: _viewPortHandler.contentRight, y: _viewPortHandler.contentBottom)

@@ -9,7 +9,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -249,9 +249,7 @@ internal struct EasingFunctions
         {
             return CGFloat( 0.5 * pow(2.0, 10.0 * (position - 1.0)) )
         }
-        
-        position = position - 1.0
-        return CGFloat( 0.5 * (-pow(2.0, -10.0 * position) + 2.0) )
+        return CGFloat( 0.5 * (-pow(2.0, -10.0 * --position) + 2.0) )
     }
     
     internal static let EaseInCirc = { (elapsed: NSTimeInterval, duration: NSTimeInterval) -> CGFloat in
@@ -342,7 +340,7 @@ internal struct EasingFunctions
     internal static let EaseOutBack = { (elapsed: NSTimeInterval, duration: NSTimeInterval) -> CGFloat in
         let s: NSTimeInterval = 1.70158
         var position: NSTimeInterval = elapsed / duration
-        position -= 1.0
+        position--
         return CGFloat( position * position * ((s + 1.0) * position + s) + 1.0 )
     }
     

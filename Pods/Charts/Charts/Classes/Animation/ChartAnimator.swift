@@ -8,15 +8,11 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 @objc
 public protocol ChartAnimatorDelegate
@@ -34,7 +30,7 @@ public class ChartAnimator: NSObject
     public var updateBlock: (() -> Void)?
     public var stopBlock: (() -> Void)?
     
-    /// the phase that is animated and influences the drawn values on the x-axis
+    /// the phase that is animated and influences the drawn values on the y-axis
     public var phaseX: CGFloat = 1.0
     
     /// the phase that is animated and influences the drawn values on the y-axis
@@ -42,7 +38,7 @@ public class ChartAnimator: NSObject
     
     private var _startTimeX: NSTimeInterval = 0.0
     private var _startTimeY: NSTimeInterval = 0.0
-    private var _displayLink: NSUIDisplayLink!
+    private var _displayLink: CADisplayLink!
     
     private var _durationX: NSTimeInterval = 0.0
     private var _durationY: NSTimeInterval = 0.0
@@ -195,7 +191,7 @@ public class ChartAnimator: NSObject
         
         if (_enabledX || _enabledY)
         {
-            _displayLink = NSUIDisplayLink(target: self, selector: #selector(ChartAnimator.animationLoop))
+            _displayLink = CADisplayLink(target: self, selector: Selector("animationLoop"))
             _displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         }
     }
@@ -261,7 +257,7 @@ public class ChartAnimator: NSObject
         {
             if _displayLink === nil
             {
-                _displayLink = NSUIDisplayLink(target: self, selector: #selector(ChartAnimator.animationLoop))
+                _displayLink = CADisplayLink(target: self, selector: Selector("animationLoop"))
                 _displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
             }
         }
@@ -305,7 +301,7 @@ public class ChartAnimator: NSObject
         {
             if _displayLink === nil
             {
-                _displayLink = NSUIDisplayLink(target: self, selector: #selector(ChartAnimator.animationLoop))
+                _displayLink = CADisplayLink(target: self, selector: Selector("animationLoop"))
                 _displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
             }
         }

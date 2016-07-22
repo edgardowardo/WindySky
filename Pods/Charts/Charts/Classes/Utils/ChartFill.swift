@@ -9,16 +9,15 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
 
 public class ChartFill: NSObject
 {
-    @objc(ChartFillType)
-    public enum Type: Int
+    @objc
+    public enum ChartFillType: Int
     {
         case Empty
         case Color
@@ -29,7 +28,7 @@ public class ChartFill: NSObject
         case Layer
     }
     
-    private var _type: Type = Type.Empty
+    private var _type: ChartFillType = ChartFillType.Empty
     private var _color: CGColorRef?
     private var _gradient: CGGradientRef?
     private var _gradientAngle: CGFloat = 0.0
@@ -42,7 +41,7 @@ public class ChartFill: NSObject
     
     // MARK: Properties
     
-    public var type: Type
+    public var type: ChartFillType
     {
         return _type
     }
@@ -104,7 +103,7 @@ public class ChartFill: NSObject
         _color = CGColor
     }
     
-    public convenience init(color: NSUIColor)
+    public convenience init(color: UIColor)
     {
         self.init(CGColor: color.CGColor)
     }
@@ -149,7 +148,7 @@ public class ChartFill: NSObject
         _image = CGImage
     }
     
-    public convenience init(image: NSUIImage, tiled: Bool)
+    public convenience init(image: UIImage, tiled: Bool)
     {
         if image.CGImage == nil
         {
@@ -166,7 +165,7 @@ public class ChartFill: NSObject
         self.init(CGImage: CGImage, tiled: false)
     }
     
-    public convenience init(image: NSUIImage)
+    public convenience init(image: UIImage)
     {
         self.init(image: image, tiled: false)
     }
@@ -184,7 +183,7 @@ public class ChartFill: NSObject
         return ChartFill(CGColor: CGColor)
     }
     
-    public class func fillWithColor(color: NSUIColor) -> ChartFill
+    public class func fillWithColor(color: UIColor) -> ChartFill
     {
         return ChartFill(color: color)
     }
@@ -221,7 +220,7 @@ public class ChartFill: NSObject
         return ChartFill(CGImage: CGImage, tiled: tiled)
     }
     
-    public class func fillWithImage(image: NSUIImage, tiled: Bool) -> ChartFill
+    public class func fillWithImage(image: UIImage, tiled: Bool) -> ChartFill
     {
         return ChartFill(image: image, tiled: tiled)
     }
@@ -231,7 +230,7 @@ public class ChartFill: NSObject
         return ChartFill(CGImage: CGImage)
     }
     
-    public class func fillWithImage(image: NSUIImage) -> ChartFill
+    public class func fillWithImage(image: UIImage) -> ChartFill
     {
         return ChartFill(image: image)
     }

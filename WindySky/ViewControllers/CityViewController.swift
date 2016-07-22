@@ -25,19 +25,14 @@ class CityViewController: UIViewController {
         }
     }
     
-    func configureView() {
-        
+    func configureView() {        
         radarChart.noDataText = "Wind data is still up in the air..."
         radarChart.descriptionText = ""
         radarChart.rotationEnabled = false
         radarChart.webLineWidth = 0.6
         radarChart.innerWebLineWidth = 0.0
         radarChart.webAlpha = 1.0
-//        radarChart.chartYMax = 17.0
-//        radarChart.yAxis.customAxisMax = 17.0
-//        let gesture = UITapGestureRecognizer(target: self, action: "clickChart:")
-//        radarChart.addGestureRecognizer(gesture)
-        
+        radarChart.yAxis.customAxisMax = 17.0
         
         if let vm = viewModel {            
             self.title = vm.city

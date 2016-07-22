@@ -6,12 +6,12 @@
 //    Copyright 2015 Pierre-Marc Airoldi
 //    Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
+import UIKit
 
 public class BubbleChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBubbleChartDataSet
 {
@@ -24,8 +24,6 @@ public class BubbleChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBubble
     public var xMin: Double { return _xMin }
     public var xMax: Double { return _xMax }
     public var maxSize: CGFloat { return _maxSize }
-    public var normalizeSizeEnabled: Bool = true
-    public var isNormalizeSizeEnabled: Bool { return normalizeSizeEnabled }
     
     public override func calcMinMax(start start: Int, end: Int)
     {
@@ -57,7 +55,7 @@ public class BubbleChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBubble
         _yMin = yMin(entries[start])
         _yMax = yMax(entries[start])
         
-        for i in start.stride(through: endValue, by: 1)
+        for (var i = start; i <= endValue; i++)
         {
             let entry = entries[i]
 

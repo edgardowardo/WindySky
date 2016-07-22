@@ -8,11 +8,10 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
 
 @objc
 public protocol IBarLineScatterCandleBubbleChartDataSet: IChartDataSet
@@ -21,7 +20,7 @@ public protocol IBarLineScatterCandleBubbleChartDataSet: IChartDataSet
     
     // MARK: - Styling functions and accessors
     
-    var highlightColor: NSUIColor { get set }
+    var highlightColor: UIColor { get set }
     var highlightLineWidth: CGFloat { get set }
     var highlightLineDashPhase: CGFloat { get set }
     var highlightLineDashLengths: [CGFloat]? { get set }

@@ -8,18 +8,18 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
+import UIKit
 
 public class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartDataSet
 {
     private func initialize()
     {
-        self.highlightColor = NSUIColor.blackColor()
+        self.highlightColor = UIColor.blackColor()
         
         self.calcStackSize(yVals as! [BarChartDataEntry])
         self.calcEntryCountIncludingStacks(yVals as! [BarChartDataEntry])
@@ -52,13 +52,13 @@ public class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartD
     {
         _entryCountStacks = 0
         
-        for i in 0 ..< yVals.count
+        for (var i = 0; i < yVals.count; i++)
         {
             let vals = yVals[i].values
             
             if (vals == nil)
             {
-                _entryCountStacks += 1
+                _entryCountStacks++
             }
             else
             {
@@ -70,7 +70,7 @@ public class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartD
     /// calculates the maximum stacksize that occurs in the Entries array of this DataSet
     private func calcStackSize(yVals: [BarChartDataEntry]!)
     {
-        for i in 0 ..< yVals.count
+        for (var i = 0; i < yVals.count; i++)
         {
             if let vals = yVals[i].values
             {
@@ -108,7 +108,7 @@ public class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartD
         _yMin = DBL_MAX
         _yMax = -DBL_MAX
         
-        for i in start.stride(through: endValue, by: 1)
+        for (var i = start; i <= endValue; i++)
         {
             if let e = _yVals[i] as? BarChartDataEntry
             {
@@ -176,14 +176,8 @@ public class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartD
     public var barSpace: CGFloat = 0.15
     
     /// the color used for drawing the bar-shadows. The bar shadows is a surface behind the bar that indicates the maximum value
-    public var barShadowColor = NSUIColor(red: 215.0/255.0, green: 215.0/255.0, blue: 215.0/255.0, alpha: 1.0)
-
-    /// the width used for drawing borders around the bars. If borderWidth == 0, no border will be drawn.
-    public var barBorderWidth : CGFloat = 0.0
-
-    /// the color drawing borders around the bars.
-    public var barBorderColor = NSUIColor.blackColor()
-
+    public var barShadowColor = UIColor(red: 215.0/255.0, green: 215.0/255.0, blue: 215.0/255.0, alpha: 1.0)
+    
     /// the alpha value (transparency) that is used for drawing the highlight indicator bar. min = 0.0 (fully transparent), max = 1.0 (fully opaque)
     public var highlightAlpha = CGFloat(120.0 / 255.0)
     

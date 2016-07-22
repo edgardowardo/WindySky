@@ -9,85 +9,70 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 public class ChartColorTemplates: NSObject
 {
-    public class func liberty () -> [NSUIColor]
+    public class func liberty () -> [UIColor]
     {
         return [
-            NSUIColor(red: 207/255.0, green: 248/255.0, blue: 246/255.0, alpha: 1.0),
-            NSUIColor(red: 148/255.0, green: 212/255.0, blue: 212/255.0, alpha: 1.0),
-            NSUIColor(red: 136/255.0, green: 180/255.0, blue: 187/255.0, alpha: 1.0),
-            NSUIColor(red: 118/255.0, green: 174/255.0, blue: 175/255.0, alpha: 1.0),
-            NSUIColor(red: 42/255.0, green: 109/255.0, blue: 130/255.0, alpha: 1.0)
+            UIColor(red: 207/255.0, green: 248/255.0, blue: 246/255.0, alpha: 1.0),
+            UIColor(red: 148/255.0, green: 212/255.0, blue: 212/255.0, alpha: 1.0),
+            UIColor(red: 136/255.0, green: 180/255.0, blue: 187/255.0, alpha: 1.0),
+            UIColor(red: 118/255.0, green: 174/255.0, blue: 175/255.0, alpha: 1.0),
+            UIColor(red: 42/255.0, green: 109/255.0, blue: 130/255.0, alpha: 1.0)
         ]
     }
     
-    public class func joyful () -> [NSUIColor]
+    public class func joyful () -> [UIColor]
     {
         return [
-            NSUIColor(red: 217/255.0, green: 80/255.0, blue: 138/255.0, alpha: 1.0),
-            NSUIColor(red: 254/255.0, green: 149/255.0, blue: 7/255.0, alpha: 1.0),
-            NSUIColor(red: 254/255.0, green: 247/255.0, blue: 120/255.0, alpha: 1.0),
-            NSUIColor(red: 106/255.0, green: 167/255.0, blue: 134/255.0, alpha: 1.0),
-            NSUIColor(red: 53/255.0, green: 194/255.0, blue: 209/255.0, alpha: 1.0)
+            UIColor(red: 217/255.0, green: 80/255.0, blue: 138/255.0, alpha: 1.0),
+            UIColor(red: 254/255.0, green: 149/255.0, blue: 7/255.0, alpha: 1.0),
+            UIColor(red: 254/255.0, green: 247/255.0, blue: 120/255.0, alpha: 1.0),
+            UIColor(red: 106/255.0, green: 167/255.0, blue: 134/255.0, alpha: 1.0),
+            UIColor(red: 53/255.0, green: 194/255.0, blue: 209/255.0, alpha: 1.0)
         ]
     }
     
-    public class func pastel () -> [NSUIColor]
+    public class func pastel () -> [UIColor]
     {
         return [
-            NSUIColor(red: 64/255.0, green: 89/255.0, blue: 128/255.0, alpha: 1.0),
-            NSUIColor(red: 149/255.0, green: 165/255.0, blue: 124/255.0, alpha: 1.0),
-            NSUIColor(red: 217/255.0, green: 184/255.0, blue: 162/255.0, alpha: 1.0),
-            NSUIColor(red: 191/255.0, green: 134/255.0, blue: 134/255.0, alpha: 1.0),
-            NSUIColor(red: 179/255.0, green: 48/255.0, blue: 80/255.0, alpha: 1.0)
+            UIColor(red: 64/255.0, green: 89/255.0, blue: 128/255.0, alpha: 1.0),
+            UIColor(red: 149/255.0, green: 165/255.0, blue: 124/255.0, alpha: 1.0),
+            UIColor(red: 217/255.0, green: 184/255.0, blue: 162/255.0, alpha: 1.0),
+            UIColor(red: 191/255.0, green: 134/255.0, blue: 134/255.0, alpha: 1.0),
+            UIColor(red: 179/255.0, green: 48/255.0, blue: 80/255.0, alpha: 1.0)
         ]
     }
     
-    public class func colorful () -> [NSUIColor]
+    public class func colorful () -> [UIColor]
     {
         return [
-            NSUIColor(red: 193/255.0, green: 37/255.0, blue: 82/255.0, alpha: 1.0),
-            NSUIColor(red: 255/255.0, green: 102/255.0, blue: 0/255.0, alpha: 1.0),
-            NSUIColor(red: 245/255.0, green: 199/255.0, blue: 0/255.0, alpha: 1.0),
-            NSUIColor(red: 106/255.0, green: 150/255.0, blue: 31/255.0, alpha: 1.0),
-            NSUIColor(red: 179/255.0, green: 100/255.0, blue: 53/255.0, alpha: 1.0)
+            UIColor(red: 193/255.0, green: 37/255.0, blue: 82/255.0, alpha: 1.0),
+            UIColor(red: 255/255.0, green: 102/255.0, blue: 0/255.0, alpha: 1.0),
+            UIColor(red: 245/255.0, green: 199/255.0, blue: 0/255.0, alpha: 1.0),
+            UIColor(red: 106/255.0, green: 150/255.0, blue: 31/255.0, alpha: 1.0),
+            UIColor(red: 179/255.0, green: 100/255.0, blue: 53/255.0, alpha: 1.0)
         ]
     }
     
-    public class func vordiplom () -> [NSUIColor]
+    public class func vordiplom () -> [UIColor]
     {
         return [
-            NSUIColor(red: 192/255.0, green: 255/255.0, blue: 140/255.0, alpha: 1.0),
-            NSUIColor(red: 255/255.0, green: 247/255.0, blue: 140/255.0, alpha: 1.0),
-            NSUIColor(red: 255/255.0, green: 208/255.0, blue: 140/255.0, alpha: 1.0),
-            NSUIColor(red: 140/255.0, green: 234/255.0, blue: 255/255.0, alpha: 1.0),
-            NSUIColor(red: 255/255.0, green: 140/255.0, blue: 157/255.0, alpha: 1.0)
+            UIColor(red: 192/255.0, green: 255/255.0, blue: 140/255.0, alpha: 1.0),
+            UIColor(red: 255/255.0, green: 247/255.0, blue: 140/255.0, alpha: 1.0),
+            UIColor(red: 255/255.0, green: 208/255.0, blue: 140/255.0, alpha: 1.0),
+            UIColor(red: 140/255.0, green: 234/255.0, blue: 255/255.0, alpha: 1.0),
+            UIColor(red: 255/255.0, green: 140/255.0, blue: 157/255.0, alpha: 1.0)
         ]
     }
     
-    public class func material () -> [NSUIColor]
-    {
-        return [
-            NSUIColor(red: 46/255.0, green: 204/255.0, blue: 113/255.0, alpha: 1.0),
-            NSUIColor(red: 241/255.0, green: 196/255.0, blue: 15/255.0, alpha: 1.0),
-            NSUIColor(red: 231/255.0, green: 76/255.0, blue: 60/255.0, alpha: 1.0),
-            NSUIColor(red: 52/255.0, green: 152/255.0, blue: 219/255.0, alpha: 1.0)
-        ]
-    }
-    
-    public class func colorFromString(colorString: String) -> NSUIColor
+    public class func colorFromString(colorString: String) -> UIColor
     {
         let leftParenCharset: NSCharacterSet = NSCharacterSet(charactersInString: "( ")
         let commaCharset: NSCharacterSet = NSCharacterSet(charactersInString: ", ")
@@ -102,8 +87,11 @@ public class ChartColorTemplates: NSObject
             var index = colorString.startIndex
             let endIndex = colorString.endIndex
             
-            index = index.advancedBy(1)
-            length = length - 1
+            if length % 2 == 1
+            {
+                index = index.advancedBy(1)
+                length = length - 1
+            }
             
             if length == 3 || length == 6 || length == 8
             {
@@ -128,11 +116,11 @@ public class ChartColorTemplates: NSObject
                         argb[i] = argb[i] + UInt(val)
                     }
                     
-                    i += 1
+                    i = i + 1
                 }
             }
             
-            return NSUIColor(red: CGFloat(argb[1]) / 255.0, green: CGFloat(argb[2]) / 255.0, blue: CGFloat(argb[3]) / 255.0, alpha: CGFloat(argb[0]) / 255.0)
+            return UIColor(red: CGFloat(argb[1]) / 255.0, green: CGFloat(argb[2]) / 255.0, blue: CGFloat(argb[3]) / 255.0, alpha: CGFloat(argb[0]) / 255.0)
         }
         else if colorString.hasPrefix("rgba")
         {
@@ -150,7 +138,7 @@ public class ChartColorTemplates: NSObject
             scanner.scanInt(&b)
             scanner.scanCharactersFromSet(commaCharset, intoString: nil)
             scanner.scanFloat(&a)
-            return NSUIColor(
+            return UIColor(
                 red: CGFloat(r) / 255.0,
                 green: CGFloat(g) / 255.0,
                 blue: CGFloat(b) / 255.0,
@@ -173,7 +161,7 @@ public class ChartColorTemplates: NSObject
             scanner.scanInt(&g)
             scanner.scanCharactersFromSet(commaCharset, intoString: nil)
             scanner.scanInt(&b)
-            return NSUIColor(
+            return UIColor(
                 red: CGFloat(r) / 255.0,
                 green: CGFloat(g) / 255.0,
                 blue: CGFloat(b) / 255.0,
@@ -193,7 +181,7 @@ public class ChartColorTemplates: NSObject
             scanner.scanInt(&g)
             scanner.scanCharactersFromSet(commaCharset, intoString: nil)
             scanner.scanInt(&b)
-            return NSUIColor(
+            return UIColor(
                 red: CGFloat(r) / 255.0,
                 green: CGFloat(g) / 255.0,
                 blue: CGFloat(b) / 255.0,
@@ -201,6 +189,6 @@ public class ChartColorTemplates: NSObject
             )
         }
         
-        return NSUIColor.clearColor()
+        return UIColor.clearColor()
     }
 }

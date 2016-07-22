@@ -8,16 +8,12 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 public class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
 {
@@ -149,11 +145,8 @@ public class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
         
         CGContextSaveGState(context)
         
-        CGContextSetShouldAntialias(context, xAxis.gridAntialiasEnabled)
         CGContextSetStrokeColorWithColor(context, xAxis.gridColor.CGColor)
         CGContextSetLineWidth(context, xAxis.gridLineWidth)
-        CGContextSetLineCap(context, xAxis.gridLineCap)
-        
         if (xAxis.gridLineDashLengths != nil)
         {
             CGContextSetLineDash(context, xAxis.gridLineDashPhase, xAxis.gridLineDashLengths, xAxis.gridLineDashLengths.count)
@@ -256,7 +249,7 @@ public class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
         
         var position = CGPoint(x: 0.0, y: 0.0)
         
-        for i in 0 ..< limitLines.count
+        for (var i = 0; i < limitLines.count; i++)
         {
             let l = limitLines[i]
             
@@ -290,7 +283,7 @@ public class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
             let label = l.label
             
             // if drawing the limit-value label is enabled
-            if (l.drawLabelEnabled && label.characters.count > 0)
+            if (label.characters.count > 0)
             {
                 let labelLineHeight = l.valueFont.lineHeight
                 

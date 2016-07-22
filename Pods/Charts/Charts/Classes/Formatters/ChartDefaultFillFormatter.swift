@@ -8,15 +8,10 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
-import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
 
 /// Default formatter that calculates the position of the filled line.
 public class ChartDefaultFillFormatter: NSObject, ChartFillFormatter
@@ -37,27 +32,34 @@ public class ChartDefaultFillFormatter: NSObject, ChartFillFormatter
         {
             if let data = dataProvider.data
             {
-                var max: Double, min: Double
-                
-                if (data.yMax > 0.0)
+                if !dataProvider.getAxis(dataSet.axisDependency).isStartAtZeroEnabled
                 {
-                    max = 0.0
+                    var max: Double, min: Double
+                    
+                    if (data.yMax > 0.0)
+                    {
+                        max = 0.0
+                    }
+                    else
+                    {
+                        max = dataProvider.chartYMax
+                    }
+                    
+                    if (data.yMin < 0.0)
+                    {
+                        min = 0.0
+                    }
+                    else
+                    {
+                        min = dataProvider.chartYMin
+                    }
+                    
+                    fillMin = CGFloat(dataSet.yMin >= 0.0 ? min : max)
                 }
                 else
                 {
-                    max = dataProvider.chartYMax
+                    fillMin = 0.0
                 }
-                
-                if (data.yMin < 0.0)
-                {
-                    min = 0.0
-                }
-                else
-                {
-                    min = dataProvider.chartYMin
-                }
-                
-                fillMin = CGFloat(dataSet.yMin >= 0.0 ? min : max)
             }
         }
         

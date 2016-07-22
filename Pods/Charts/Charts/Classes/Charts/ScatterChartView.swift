@@ -8,7 +8,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -22,21 +22,20 @@ public class ScatterChartView: BarLineChartViewBase, ScatterChartDataProvider
         super.initialize()
         
         renderer = ScatterChartRenderer(dataProvider: self, animator: _animator, viewPortHandler: _viewPortHandler)
-        _xAxis._axisMinimum = -0.5
+        _chartXMin = -0.5
     }
 
     public override func calcMinMax()
     {
         super.calcMinMax()
-        guard let data = _data else { return }
 
-        if _xAxis.axisRange == 0.0 && data.yValCount > 0
+        if (_deltaX == 0.0 && _data.yValCount > 0)
         {
-            _xAxis.axisRange = 1.0
+            _deltaX = 1.0
         }
         
-        _xAxis._axisMaximum += 0.5
-        _xAxis.axisRange = abs(_xAxis._axisMaximum - _xAxis._axisMinimum)
+        _chartXMax += 0.5
+        _deltaX = CGFloat(abs(_chartXMax - _chartXMin))
     }
     
     // MARK: - ScatterChartDataProbider

@@ -8,12 +8,12 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
+import UIKit
 
 public class CandleChartDataSet: LineScatterCandleRadarChartDataSet, ICandleChartDataSet
 {
@@ -58,7 +58,7 @@ public class CandleChartDataSet: LineScatterCandleRadarChartDataSet, ICandleChar
         _yMin = DBL_MAX
         _yMax = -DBL_MAX
         
-        for i in start.stride(through: endValue, by: 1)
+        for (var i = start; i <= endValue; i++)
         {
             let e = entries[i]
             
@@ -79,46 +79,40 @@ public class CandleChartDataSet: LineScatterCandleRadarChartDataSet, ICandleChar
     /// the space between the candle entries
     ///
     /// **default**: 0.1 (10%)
-    private var _barSpace = CGFloat(0.1)
+    private var _bodySpace = CGFloat(0.1)
     
     /// the space that is left out on the left and right side of each candle,
     /// **default**: 0.1 (10%), max 0.45, min 0.0
-    public var barSpace: CGFloat
+    public var bodySpace: CGFloat
     {
         set
         {
             if (newValue < 0.0)
             {
-                _barSpace = 0.0
+                _bodySpace = 0.0
             }
             else if (newValue > 0.45)
             {
-                _barSpace = 0.45
+                _bodySpace = 0.45
             }
             else
             {
-                _barSpace = newValue
+                _bodySpace = newValue
             }
         }
         get
         {
-            return _barSpace
+            return _bodySpace
         }
     }
     
-    /// should the candle bars show?
-    /// when false, only "ticks" will show
-    ///
-    /// **default**: true
-    public var showCandleBar: Bool = true
-    
     /// the width of the candle-shadow-line in pixels.
     ///
-    /// **default**: 1.5
+    /// **default**: 3.0
     public var shadowWidth = CGFloat(1.5)
     
     /// the color of the shadow line
-    public var shadowColor: NSUIColor?
+    public var shadowColor: UIColor?
     
     /// use candle color for the shadow
     public var shadowColorSameAsCandle = false
@@ -126,26 +120,21 @@ public class CandleChartDataSet: LineScatterCandleRadarChartDataSet, ICandleChar
     /// Is the shadow color same as the candle color?
     public var isShadowColorSameAsCandle: Bool { return shadowColorSameAsCandle }
     
-    /// color for open == close
-    public var neutralColor: NSUIColor?
+    /// color for open <= close
+    public var decreasingColor: UIColor?
     
     /// color for open > close
-    public var increasingColor: NSUIColor?
-    
-    /// color for open < close
-    public var decreasingColor: NSUIColor?
-    
-    /// Are increasing values drawn as filled?
-    /// increasing candlesticks are traditionally hollow
-    public var increasingFilled = false
-    
-    /// Are increasing values drawn as filled?
-    public var isIncreasingFilled: Bool { return increasingFilled }
+    public var increasingColor: UIColor?
     
     /// Are decreasing values drawn as filled?
-    /// descreasing candlesticks are traditionally filled
-    public var decreasingFilled = true
+    public var decreasingFilled = false
     
     /// Are decreasing values drawn as filled?
     public var isDecreasingFilled: Bool { return decreasingFilled }
+    
+    /// Are increasing values drawn as filled?
+    public var increasingFilled = true
+    
+    /// Are increasing values drawn as filled?
+    public var isIncreasingFilled: Bool { return increasingFilled }
 }

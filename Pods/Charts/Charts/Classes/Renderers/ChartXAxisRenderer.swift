@@ -8,16 +8,12 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 public class ChartXAxisRenderer: ChartAxisRendererBase
 {
@@ -38,7 +34,7 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
         
         let max = Int(round(xValAverageLength + Double(xAxis.spaceBetweenLabels)))
         
-        for _ in 0 ..< max
+        for (var i = 0; i < max; i++)
         {
             a += "h"
         }
@@ -228,12 +224,14 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
         }
         
         CGContextSaveGState(context)
-        
-        CGContextSetShouldAntialias(context, xAxis.gridAntialiasEnabled)
+
+        if (!xAxis.gridAntialiasEnabled)
+        {
+            CGContextSetShouldAntialias(context, false)
+        }
+
         CGContextSetStrokeColorWithColor(context, xAxis.gridColor.CGColor)
         CGContextSetLineWidth(context, xAxis.gridLineWidth)
-        CGContextSetLineCap(context, xAxis.gridLineCap)
-        
         if (xAxis.gridLineDashLengths != nil)
         {
             CGContextSetLineDash(context, xAxis.gridLineDashPhase, xAxis.gridLineDashLengths, xAxis.gridLineDashLengths.count)
@@ -284,7 +282,7 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
         
         var position = CGPoint(x: 0.0, y: 0.0)
         
-        for i in 0 ..< limitLines.count
+        for (var i = 0; i < limitLines.count; i++)
         {
             let l = limitLines[i]
             
@@ -332,7 +330,7 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
         let label = limitLine.label
         
         // if drawing the limit-value label is enabled
-        if (limitLine.drawLabelEnabled && label.characters.count > 0)
+        if (label.characters.count > 0)
         {
             let labelLineHeight = limitLine.valueFont.lineHeight
             

@@ -8,7 +8,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -104,7 +104,7 @@ public class ChartTransformer: NSObject
     public func pointValuesToPixel(inout pts: [CGPoint])
     {
         let trans = valueToPixelMatrix
-        for i in 0 ..< pts.count
+        for (var i = 0, count = pts.count; i < count; i++)
         {
             pts[i] = CGPointApplyAffineTransform(pts[i], trans)
         }
@@ -158,7 +158,7 @@ public class ChartTransformer: NSObject
     {
         let trans = valueToPixelMatrix
         
-        for i in 0 ..< rects.count
+        for (var i = 0; i < rects.count; i++)
         {
             rects[i] = CGRectApplyAffineTransform(rects[i], trans)
         }
@@ -169,7 +169,7 @@ public class ChartTransformer: NSObject
     {
         let trans = pixelToValueMatrix
         
-        for i in 0 ..< pixels.count
+        for (var i = 0; i < pixels.count; i++)
         {
             pixels[i] = CGPointApplyAffineTransform(pixels[i], trans)
         }

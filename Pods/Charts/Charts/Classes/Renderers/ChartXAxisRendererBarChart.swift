@@ -8,16 +8,12 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 public class ChartXAxisRendererBarChart: ChartXAxisRenderer
 {
@@ -126,11 +122,8 @@ public class ChartXAxisRendererBarChart: ChartXAxisRenderer
         
         CGContextSaveGState(context)
         
-        CGContextSetShouldAntialias(context, xAxis.gridAntialiasEnabled)
         CGContextSetStrokeColorWithColor(context, xAxis.gridColor.CGColor)
         CGContextSetLineWidth(context, xAxis.gridLineWidth)
-        CGContextSetLineCap(context, xAxis.gridLineCap)
-        
         if (xAxis.gridLineDashLengths != nil)
         {
             CGContextSetLineDash(context, xAxis.gridLineDashPhase, xAxis.gridLineDashLengths, xAxis.gridLineDashLengths.count)

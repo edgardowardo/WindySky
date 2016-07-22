@@ -8,7 +8,7 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -40,9 +40,6 @@ public protocol IChartDataSet
     /// - returns: the value of the Entry object at the given xIndex. Returns NaN if no value is at the given x-index.
     func yValForXIndex(x: Int) -> Double
     
-    /// - returns: all of the y values of the Entry objects at the given xIndex. Returns NaN if no value is at the given x-index.
-    func yValsForXIndex(x: Int) -> [Double]
-    
     /// - returns: the entry object found at the given index (not x-index!)
     /// - throws: out of bounds
     /// if `i` is out of bounds, it may throw an out-of-bounds exception
@@ -51,22 +48,12 @@ public protocol IChartDataSet
     /// - returns: the first Entry object found at the given xIndex with binary search.
     /// If the no Entry at the specifed x-index is found, this method returns the Entry at the closest x-index.
     /// nil if no Entry object at that index.
-    func entryForXIndex(x: Int, rounding: ChartDataSetRounding) -> ChartDataEntry?
-    
-    /// - returns: the first Entry object found at the given xIndex with binary search.
-    /// If the no Entry at the specifed x-index is found, this method returns the Entry at the closest x-index.
-    /// nil if no Entry object at that index.
     func entryForXIndex(x: Int) -> ChartDataEntry?
-    
-    /// - returns: all Entry objects found at the given xIndex with binary search.
-    /// An empty array if no Entry object at that index.
-    func entriesForXIndex(x: Int) -> [ChartDataEntry]
     
     /// - returns: the array-index of the specified entry
     ///
     /// - parameter x: x-index of the entry to search for
-    /// - parameter rounding: x-index of the entry to search for
-    func entryIndex(xIndex x: Int, rounding: ChartDataSetRounding) -> Int
+    func entryIndex(xIndex x: Int) -> Int
     
     /// - returns: the array-index of the specified entry
     ///
@@ -142,21 +129,21 @@ public protocol IChartDataSet
     var axisDependency: ChartYAxis.AxisDependency { get }
     
     /// List representing all colors that are used for drawing the actual values for this DataSet
-    var valueColors: [NSUIColor] { get }
+    var valueColors: [UIColor] { get }
     
     /// All the colors that are used for this DataSet.
     /// Colors are reused as soon as the number of Entries the DataSet represents is higher than the size of the colors array.
-    var colors: [NSUIColor] { get }
+    var colors: [UIColor] { get }
     
     /// - returns: the color at the given index of the DataSet's color array.
     /// This prevents out-of-bounds by performing a modulus on the color index, so colours will repeat themselves.
-    func colorAt(index: Int) -> NSUIColor
+    func colorAt(var index: Int) -> UIColor
     
     func resetColors()
     
-    func addColor(color: NSUIColor)
+    func addColor(color: UIColor)
     
-    func setColor(color: NSUIColor)
+    func setColor(color: UIColor)
     
     /// if true, value highlighting is enabled
     var highlightEnabled: Bool { get set }
@@ -170,13 +157,13 @@ public protocol IChartDataSet
     /// Sets/get a single color for value text.
     /// Setting the color clears the colors array and adds a single color.
     /// Getting will return the first color in the array.
-    var valueTextColor: NSUIColor { get set }
+    var valueTextColor: UIColor { get set }
     
     /// - returns: the color at the specified index that is used for drawing the values inside the chart. Uses modulus internally.
-    func valueTextColorAt(index: Int) -> NSUIColor
+    func valueTextColorAt(var index: Int) -> UIColor
     
     /// the font for the value-text labels
-    var valueFont: NSUIFont { get set }
+    var valueFont: UIFont { get set }
     
     /// Set this to true to draw y-values on the chart
     var drawValuesEnabled: Bool { get set }

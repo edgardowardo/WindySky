@@ -8,12 +8,12 @@
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
-
+import UIKit
 
 public class LineRadarChartRenderer: LineScatterCandleRadarChartRenderer
 {
@@ -38,7 +38,7 @@ public class LineRadarChartRenderer: LineScatterCandleRadarChartRenderer
     }
     
     /// Draws the provided path in filled mode with the provided color and alpha.
-    public func drawFilledPath(context context: CGContext, path: CGPath, fillColor: NSUIColor, fillAlpha: CGFloat)
+    public func drawFilledPath(context context: CGContext, path: CGPath, fillColor: UIColor, fillAlpha: CGFloat)
     {
         CGContextSaveGState(context)
         CGContextBeginPath(context)
