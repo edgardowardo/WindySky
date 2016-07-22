@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RealmSwift
 import Charts
 
 class CityViewController: UIViewController {
@@ -17,7 +18,9 @@ class CityViewController: UIViewController {
     @IBOutlet weak var radarChart: RadarChartView!
     @IBOutlet weak var forecastsView: UICollectionView!
     var forecastuples : [(String, NSDate, [Forecast])]?
-    
+    var since : String = ""
+    private let directions = Direction.directions.map({ return $0.rawValue })
+
     var viewModel : CityViewModel? {
         didSet {
             // Update the view.
@@ -25,15 +28,7 @@ class CityViewController: UIViewController {
         }
     }
     
-    func configureView() {        
-        radarChart.noDataText = "Wind data is still up in the air..."
-        radarChart.descriptionText = ""
-        radarChart.rotationEnabled = false
-        radarChart.webLineWidth = 0.6
-        radarChart.innerWebLineWidth = 0.0
-        radarChart.webAlpha = 1.0
-        radarChart.yAxis.customAxisMax = 17.0
-        
+    func configureView() {
         if let vm = viewModel {            
             self.title = vm.city
             // TODO: Configure Chart etc.
@@ -51,12 +46,49 @@ class CityViewController: UIViewController {
             .asObservable()
             .subscribeNext({ (value) in
                 
-
- //               self.forecastsView.collectionViewLayout = CurrentDetailLayout()
+//               self.forecastsView.collectionViewLayout = CurrentDetailLayout()
+//                self.configureView()
                 
-                self.configureView()
+                if let c = self.viewModel?.current.value /*, realm = try? Realm()*/, lastupdate = c.lastupdate {
+                    //            let id = "\(c.id)"
+                    self.updateChart(withDirection: c.direction, andSpeed: c.wind!.speed, andSpeedName: self.getSpeedName(speedMeterPerSecond: c.wind!.speed), andSince: "since \(lastupdate.hourAndMin)" )
+                    //            self.realmForecasts = realm.objects(Forecast).filter("cityid == \(id)").sorted("timefrom", ascending: true)
+                    //            self.forecastsView.reloadData()
+                    self.radarChart.yAxis.customAxisMax = Units.Metric.maxSpeed
+                    self.title = viewModel.city
+                }
             })
             .addDisposableTo(disposeBag)
+        
+        radarChart.noDataText = "Wind data is still up in the air..."
+        radarChart.descriptionText = ""
+        radarChart.rotationEnabled = false
+        radarChart.webLineWidth = 0.6
+        radarChart.innerWebLineWidth = 0.0
+        radarChart.webAlpha = 1.0
+        radarChart.yAxis.customAxisMax = 17.0
+
+        forecastsView.dataSource = self
+        forecastsView.registerNib(UINib(nibName: "ForecastCell", bundle: nil), forCellWithReuseIdentifier: "ForecastCellIdentifier")
+        forecastsView.registerNib(UINib(nibName: "LeftTitlesCell", bundle: nil), forSupplementaryViewOfKind: TitlesCell.kindTableHeader, withReuseIdentifier: "LeftTitlesCellIdentifier")
+        forecastsView.registerNib(UINib(nibName: "RightTitlesCell", bundle: nil), forSupplementaryViewOfKind: TitlesCell.kindTableFooter, withReuseIdentifier: "RightTitlesCellIdentifier")
+        forecastsView.registerNib(UINib(nibName: "DayCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "DayCellIdentifier")
+        forecastsView.contentInset = UIEdgeInsets(top: 0, left: -TitlesCell.size.width, bottom: 0, right: -TitlesCell.size.width)
+    }
+    
+    func getSpeedName(speedMeterPerSecond speed : Double) -> String {
+        switch speed {
+        case 0.0 ... 6.0:
+            return "Gentle"
+        case 6.0 ... 9.0:
+            return "Moderate"
+        case 9.0 ... 15:
+            return "Fresh"
+        case 15 ... Double.infinity :
+            return "Strong"
+        default :
+            return "Windless"
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,6 +107,44 @@ class CityViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil)
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion:{})
+    }
+    
+    func updateChart(withDirection direction: Direction?, andSpeed speed : Double, andSpeedName speedname : String, andSince since : String ) {
+        self.since = since
+        var speeds = direction?.directionsWithspeed(speed)
+        if speeds == nil {
+            speeds = Array<Double>.init(count: 16, repeatedValue: 0.0)
+        }
+        setChart(directions, values: speeds!, andDirection: direction, andSpeed: speed, andSpeedName: speedname, andSince: since)
+    }
+    
+    func setChart(dataPoints: [String], values: [Double], andDirection direction: Direction?, andSpeed speed : Double, andSpeedName speedname : String, andSince since : String) {
+        
+        guard let _ = self.viewModel?.current else { return }
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0 ..< dataPoints.count {
+            let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
+            dataEntries.append(dataEntry)
+        }
+        
+        let speedText = String(format: "%.2f", speed)
+        let speedname = ( speedname == "" ) ? "Windless" : speedname
+        let directionname = ( direction == nil ) ? "nowhere" : direction!.name.lowercaseString
+        let speedUnit = Units.Metric.speed
+        let chartDataSet = RadarChartDataSet(yVals: dataEntries, label: "\(speedname) wind from \(directionname) at \(speedText) \(speedUnit) \(since)")
+        chartDataSet.drawValuesEnabled = false
+        chartDataSet.lineWidth = 2.0
+        chartDataSet.drawFilledEnabled = true
+        chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
+        chartDataSet.drawVerticalHighlightIndicatorEnabled = false
+        let speedColor = Units.Metric.getColorOfSpeed(speed)
+        chartDataSet.fillColor = speedColor
+        chartDataSet.setColor(speedColor, alpha: 0.6)
+        let chartData = RadarChartData(xVals: directions, dataSets: [chartDataSet])
+        
+        radarChart.data = chartData
+        radarChart.animate(yAxisDuration: NSTimeInterval(1.4), easingOption: ChartEasingOption.EaseOutBack)
     }
     
 }
