@@ -138,7 +138,9 @@ class CitiesViewController: UITableViewController {
         } else {
             c = viewModel.currentObjects.value[indexPath.section].1[indexPath.row]
         }
-        cell.textLabel!.text = c.name
+        let vm = CitiesItemViewModel(current: c, currentLocation: location)
+        cell.textLabel!.text = vm.mainText
+        cell.detailTextLabel?.text = vm.detailText
         return cell
     }
     

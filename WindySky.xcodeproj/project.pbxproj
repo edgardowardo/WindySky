@@ -27,6 +27,7 @@
 		774DA5C31D416E8000F27015 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774DA5C21D416E8000F27015 /* CityViewController.swift */; };
 		77D47A1D1D4217B100B3B5EA /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D47A1C1D4217B100B3B5EA /* NSDate.swift */; };
 		77D47A1E1D4217B500B3B5EA /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D47A1C1D4217B100B3B5EA /* NSDate.swift */; };
+		77D47A201D42302500B3B5EA /* CitiesItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D47A1F1D42302500B3B5EA /* CitiesItemViewModel.swift */; };
 		8E676E5DA7350A0506B9AFE1 /* Pods_WindySky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34FFDE64CC2537D28030BA9 /* Pods_WindySky.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		774DA5C01D416E4E00F27015 /* CitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		774DA5C21D416E8000F27015 /* CityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		77D47A1C1D4217B100B3B5EA /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
+		77D47A1F1D42302500B3B5EA /* CitiesItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesItemViewModel.swift; sourceTree = "<group>"; };
 		7F5F0758C5C5FA8F0276B504 /* Pods-WindySkyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindySkyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WindySkyTests/Pods-WindySkyTests.release.xcconfig"; sourceTree = "<group>"; };
 		A5C01C27ED3388ECE57BBDAB /* Pods-WindySky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WindySky.release.xcconfig"; path = "Pods/Target Support Files/Pods-WindySky/Pods-WindySky.release.xcconfig"; sourceTree = "<group>"; };
 		C34FFDE64CC2537D28030BA9 /* Pods_WindySky.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WindySky.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				774DA5BC1D416B0D00F27015 /* CitiesViewModel.swift */,
+				77D47A1F1D42302500B3B5EA /* CitiesItemViewModel.swift */,
 				774DA5BE1D416CF500F27015 /* CityViewModel.swift */,
 			);
 			path = ViewModels;
@@ -422,6 +425,7 @@
 				774DA5BF1D416CF500F27015 /* CityViewModel.swift in Sources */,
 				774DA5B51D416A1000F27015 /* SpotService.swift in Sources */,
 				774DA5B11D41650C00F27015 /* Current.swift in Sources */,
+				77D47A201D42302500B3B5EA /* CitiesItemViewModel.swift in Sources */,
 				774DA5BD1D416B0D00F27015 /* CitiesViewModel.swift in Sources */,
 				774DA5BB1D416A7900F27015 /* OpenWeatherMapService.swift in Sources */,
 				77D47A1D1D4217B100B3B5EA /* NSDate.swift in Sources */,
