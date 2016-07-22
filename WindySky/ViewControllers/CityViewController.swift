@@ -14,25 +14,28 @@ import Charts
 
 class CityViewController: UIViewController {
     
-    let disposeBag = DisposeBag()
+    var viewModel : CityViewModel?
     @IBOutlet weak var radarChart: RadarChartView!
     @IBOutlet weak var forecastsView: UICollectionView!
-    var forecastuples : [(String, NSDate, [Forecast])]?
-    var since : String = ""
+    private let disposeBag = DisposeBag()
+    private var forecastuples : [(String, NSDate, [Forecast])]?
+    private var since : String = ""
     private let directions = Direction.directions.map({ return $0.rawValue })
-
-    var viewModel : CityViewModel? {
+    var realmForecasts : Results<Forecast>? {
         didSet {
-            // Update the view.
-            self.configureView()
+            let sections = Set( realmForecasts!.valueForKey("day") as! [String])
+            forecastuples = []
+            for s in sections {
+                if let perdays = realmForecasts?.filter({ s == $0.day }).sort({ $0.timefrom!.compare($1.timefrom!) == .OrderedAscending }), f = perdays.first, date = f.date {
+                    forecastuples!.append( (s, date, perdays))
+                }
+            }
+            forecastuples?.sortInPlace({ $0.1.compare($1.1) == .OrderedAscending })
         }
     }
+
     
     func configureView() {
-        if let vm = viewModel {            
-            self.title = vm.city
-            // TODO: Configure Chart etc.
-        }
     }
     
     override func viewDidLoad() {
@@ -45,17 +48,12 @@ class CityViewController: UIViewController {
         viewModel.current
             .asObservable()
             .subscribeNext({ (value) in
-                
-//               self.forecastsView.collectionViewLayout = CurrentDetailLayout()
-//                self.configureView()
-                
-                if let c = self.viewModel?.current.value /*, realm = try? Realm()*/, lastupdate = c.lastupdate {
-                    //            let id = "\(c.id)"
-                    self.updateChart(withDirection: c.direction, andSpeed: c.wind!.speed, andSpeedName: self.getSpeedName(speedMeterPerSecond: c.wind!.speed), andSince: "since \(lastupdate.hourAndMin)" )
-                    //            self.realmForecasts = realm.objects(Forecast).filter("cityid == \(id)").sorted("timefrom", ascending: true)
-                    //            self.forecastsView.reloadData()
-                    self.radarChart.yAxis.customAxisMax = Units.Metric.maxSpeed
+                if let c = self.viewModel?.current.value, lastupdate = c.lastupdate {
                     self.title = viewModel.city
+                    self.updateChart(withDirection: c.direction, andSpeed: c.wind!.speed, andSpeedName: self.getSpeedName(speedMeterPerSecond: c.wind!.speed), andSince: "since \(lastupdate.hourAndMin)" )
+                    self.realmForecasts = value?.forecasts.sorted("dt_txt", ascending: true)
+                    self.forecastsView.collectionViewLayout = CurrentDetailLayout()
+                    self.radarChart.yAxis.customAxisMax = Units.Metric.maxSpeed
                 }
             })
             .addDisposableTo(disposeBag)

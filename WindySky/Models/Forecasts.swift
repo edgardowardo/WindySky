@@ -23,7 +23,6 @@ class Forecasts : Object {
     let list = List<Forecast>()
 }
 
-
 extension Forecast {    
     var hour : String {
         get {
@@ -47,6 +46,24 @@ extension Forecast {
             } else {
                 return nil
             }
+        }
+    }
+
+    var timefrom : NSDate? {
+        get {
+            return NSDateFormatter.nsdateFromString(dt_txt)
+        }
+    }
+    
+    var date : NSDate? {
+        get {
+            if let t = timefrom {
+                let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                let components = cal.components([.Day , .Month, .Year ], fromDate: t)
+                let newDate = cal.dateFromComponents(components)
+                return newDate
+            }
+            return nil
         }
     }
     
