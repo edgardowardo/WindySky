@@ -52,7 +52,7 @@ class CityViewController: UIViewController {
                     self.title = viewModel.city
                     self.updateChart(withDirection: c.direction, andSpeed: c.wind!.speed, andSpeedName: self.getSpeedName(speedMeterPerSecond: c.wind!.speed), andSince: "since \(lastupdate.hourAndMin)" )
                     self.realmForecasts = value?.forecasts.sorted("dt_txt", ascending: true)
-                    self.forecastsView.collectionViewLayout = CurrentDetailLayout()
+                    self.forecastsView.reloadData()
                     self.radarChart.yAxis.customAxisMax = Units.Metric.maxSpeed
                 }
             })

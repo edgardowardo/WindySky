@@ -39,7 +39,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="D9z-kJ-7Qm"/>
                                 </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="ZpO-mx-ru9"/>
+                                <collectionViewLayout key="collectionViewLayout" id="ZpO-mx-ru9" customClass="CurrentDetailLayout" customModule="WindySky" customModuleProvider="target"/>
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFB-Hv-LUc" customClass="RadarChartView" customModule="Charts">
