@@ -27,6 +27,7 @@ class CitiesViewController: UITableViewController {
             viewModel.coordinate?.lon = location!.coordinate.longitude
         }
     }
+    private var notificationToken: NotificationToken? = nil
     
     // MARK: - View lifecycle -
     
@@ -76,8 +77,22 @@ class CitiesViewController: UITableViewController {
                 self.tableView.reloadData()
             })
             .addDisposableTo(disposeBag)
+    
+        notificationToken = viewModel.realm.objects(Current).addNotificationBlock { (changes) in
+            self.viewModel.getCurrentObjects()
+            self.tableView.reloadData()
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(methodOfReceivedNotification_didloadSpotData), name: SpotService.Notification.Identifier.didloadSpotData, object: nil)
     }
     
+    @objc private func methodOfReceivedNotification_didloadSpotData(notification : NSNotification) {
+        backgroundThread(0.1, background: nil) {
+            self.viewModel.getCurrentObjects()
+            self.tableView.reloadData()
+        }
+    }
+
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)

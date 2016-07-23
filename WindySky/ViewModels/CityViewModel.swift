@@ -42,19 +42,21 @@ class CityViewModel {
         } else {
             self.hudDelegate?.showHud(text: "Searching...")
             
-            OpenWeatherMapService.fetchCityAndForecast(withId: self.cityid, callback: { (city, forecasts) in
-                autoreleasepool {
-                    try! self.realm.write {
-                        city.lastupdate = NSDate()
-                        city.forecasts = forecasts.list
-                        self.realm.add(city, update: true)
-                    }
-                }
-                self.current.value = city
-                self.hudDelegate?.hideHud()
-                if let callback = withCallBack {
-                    callback()
-                }
+            OpenWeatherMapService.fetchCityAndForecast(withId: self.cityid,
+                                                       errorCallback: { (message) in self.hudDelegate?.hideHud() },
+                                                       callback: { (city, forecasts) in
+                                                        autoreleasepool {
+                                                            try! self.realm.write {
+                                                                city.lastupdate = NSDate()
+                                                                city.forecasts = forecasts.list
+                                                                self.realm.add(city, update: true)
+                                                            }
+                                                        }
+                                                        self.current.value = city
+                                                        self.hudDelegate?.hideHud()
+                                                        if let callback = withCallBack {
+                                                            callback()
+                                                        }
             })
         }
     }

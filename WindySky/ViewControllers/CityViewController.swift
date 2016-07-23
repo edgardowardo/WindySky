@@ -21,6 +21,7 @@ class CityViewController: UIViewController {
     private var forecastuples : [(String, NSDate, [Forecast])]?
     private var since : String = ""
     private let directions = Direction.directions.map({ return $0.rawValue })
+    private var star : UIButton!
     var realmForecasts : Results<Forecast>? {
         didSet {
             let sections = Set( realmForecasts!.valueForKey("day") as! [String])
@@ -34,14 +35,8 @@ class CityViewController: UIViewController {
         }
     }
 
-    
-    func configureView() {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
         
         guard let viewModel = self.viewModel else { return }
         viewModel.refreshCity()
@@ -72,6 +67,20 @@ class CityViewController: UIViewController {
         forecastsView.registerNib(UINib(nibName: "RightTitlesCell", bundle: nil), forSupplementaryViewOfKind: TitlesCell.kindTableFooter, withReuseIdentifier: "RightTitlesCellIdentifier")
         forecastsView.registerNib(UINib(nibName: "DayCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "DayCellIdentifier")
         forecastsView.contentInset = UIEdgeInsets(top: 0, left: -TitlesCell.size.width, bottom: 0, right: -TitlesCell.size.width)
+        
+        let imageNormal = UIImage(named: "icon-star-outline")!
+        let imageSelected = UIImage(named: "icon-superstar")
+        star = UIButton(type: .Custom)
+        star.bounds = CGRectMake(0, 0, imageNormal.size.width, imageNormal.size.height)
+        star.setImage(imageNormal, forState: .Normal)
+        star.setImage(imageSelected, forState: .Selected)
+        star.addTarget(self, action: #selector(starPressed), forControlEvents: .TouchUpInside)
+
+        navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: star)], animated: true)
+    }
+    
+    func starPressed() {
+        star.selected = !star.selected
     }
     
     func getSpeedName(speedMeterPerSecond speed : Double) -> String {

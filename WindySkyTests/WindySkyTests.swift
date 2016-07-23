@@ -30,7 +30,7 @@ class WindySkyTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+    /*
     func testSpotService() {
         
         try! realm.write({
@@ -53,7 +53,7 @@ class WindySkyTests: XCTestCase {
                 print("Error: \(error.localizedDescription)")
             }
         }
-    }
+    }*/
     
     func testCitiesViewModel() {
         
@@ -160,6 +160,27 @@ class WindySkyTests: XCTestCase {
             e.fulfill()
         }
         
+        waitForExpectationsWithTimeout(60) { error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func testOpenWeatherMapServiceAsynchronouslyNegative() {
+        let id = -1
+        let e = expectationWithDescription("Expect return error from server using the service")
+        
+        OpenWeatherMapService.fetchCityAndForecast(withId: id, errorCallback:
+            { (message) in
+                XCTAssertNotNil(message)
+                if let m = message {
+                    XCTAssertEqual(m, "Error: Not found city")
+                }
+                e.fulfill()
+            }) { (city, forecasts) in
+                XCTFail("Should not have completed service.")
+            }
         waitForExpectationsWithTimeout(60) { error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")

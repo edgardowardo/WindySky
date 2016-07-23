@@ -30,6 +30,7 @@ class Current : Object {
     dynamic var coord : Coordinate?
     dynamic var wind : Wind?
     dynamic var sys : Sys?
+    dynamic var isFavourite = false
     var forecasts = List<Forecast>()
     
     override static func primaryKey() -> String? {
