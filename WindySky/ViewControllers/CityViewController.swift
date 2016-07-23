@@ -15,26 +15,11 @@ import Charts
 
 class CityViewController: UIViewController {
     
-    var viewModel : CityViewModel?
+    var viewModel : CityViewModel!
     @IBOutlet weak var radarChart: RadarChartView!
     @IBOutlet weak var forecastsView: UICollectionView!
-    private let disposeBag = DisposeBag()
-    private var forecastuples : [(String, NSDate, [Forecast])]?
-    private var since : String = ""
-    private let directions = Direction.directions.map({ return $0.rawValue })
     private var star : UIButton!
-    var realmForecasts : Results<Forecast>? {
-        didSet {
-            let sections = Set( realmForecasts!.valueForKey("day") as! [String])
-            forecastuples = []
-            for s in sections {
-                if let perdays = realmForecasts?.filter({ s == $0.day }).sort({ $0.timefrom!.compare($1.timefrom!) == .OrderedAscending }), f = perdays.first, date = f.date {
-                    forecastuples!.append( (s, date, perdays))
-                }
-            }
-            forecastuples?.sortInPlace({ $0.1.compare($1.1) == .OrderedAscending })
-        }
-    }
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +29,16 @@ class CityViewController: UIViewController {
         viewModel.current
             .asObservable()
             .subscribeNext({ (value) in
-                if let c = self.viewModel?.current.value, lastupdate = c.lastupdate {
-                    self.title = viewModel.city
-                    self.updateChart(withDirection: c.direction, andSpeed: c.wind!.speed, andSpeedName: self.getSpeedName(speedMeterPerSecond: c.wind!.speed), andSince: "since \(lastupdate.hourAndMin)" )
-                    self.realmForecasts = value?.forecasts.sorted("dt_txt", ascending: true)
+                if let _ = value {
+                    self.title = viewModel.title
+                    self.updateChart(withDirection: viewModel.direction, andSpeed: viewModel.speed, andSpeedName: viewModel.speedName, andSince: viewModel.since)
                     self.forecastsView.reloadData()
                     self.radarChart.yAxis.customAxisMax = Units.Metric.maxSpeed
                 }
             })
             .addDisposableTo(disposeBag)
         
-        radarChart.noDataText = "Wind data is still up in the air..."
+        radarChart.noDataText = viewModel.chartNoDataText
         radarChart.descriptionText = ""
         radarChart.rotationEnabled = false
         radarChart.webLineWidth = 0.6
@@ -69,8 +53,8 @@ class CityViewController: UIViewController {
         forecastsView.registerNib(UINib(nibName: "DayCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "DayCellIdentifier")
         forecastsView.contentInset = UIEdgeInsets(top: 0, left: -TitlesCell.size.width, bottom: 0, right: -TitlesCell.size.width)
         
-        let imageNormal = UIImage(named: "icon-star-outline")!
-        let imageSelected = UIImage(named: "icon-superstar")
+        let imageNormal = UIImage(named: viewModel.iconUnfavourite)!
+        let imageSelected = UIImage(named: viewModel.iconFavourite)
         star = UIButton(type: .Custom)
         star.bounds = CGRectMake(0, 0, imageNormal.size.width, imageNormal.size.height)
         star.setImage(imageNormal, forState: .Normal)
@@ -88,22 +72,6 @@ class CityViewController: UIViewController {
             .addDisposableTo(disposeBag)
 
         navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: star)], animated: true)
-    }
-    
-    
-    func getSpeedName(speedMeterPerSecond speed : Double) -> String {
-        switch speed {
-        case 0.0 ... 6.0:
-            return "Gentle"
-        case 6.0 ... 9.0:
-            return "Moderate"
-        case 9.0 ... 15:
-            return "Fresh"
-        case 15 ... Double.infinity :
-            return "Strong"
-        default :
-            return "Windless"
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,12 +93,11 @@ class CityViewController: UIViewController {
     }
     
     func updateChart(withDirection direction: Direction?, andSpeed speed : Double, andSpeedName speedname : String, andSince since : String ) {
-        self.since = since
         var speeds = direction?.directionsWithspeed(speed)
         if speeds == nil {
             speeds = Array<Double>.init(count: 16, repeatedValue: 0.0)
         }
-        setChart(directions, values: speeds!, andDirection: direction, andSpeed: speed, andSpeedName: speedname, andSince: since)
+        setChart(viewModel.directions, values: speeds!, andDirection: direction, andSpeed: speed, andSpeedName: speedname, andSince: since)
     }
     
     func setChart(dataPoints: [String], values: [Double], andDirection direction: Direction?, andSpeed speed : Double, andSpeedName speedname : String, andSince since : String) {
@@ -156,7 +123,7 @@ class CityViewController: UIViewController {
         let speedColor = Units.Metric.getColorOfSpeed(speed)
         chartDataSet.fillColor = speedColor
         chartDataSet.setColor(speedColor, alpha: 0.6)
-        let chartData = RadarChartData(xVals: directions, dataSets: [chartDataSet])
+        let chartData = RadarChartData(xVals: viewModel.directions, dataSets: [chartDataSet])
         
         radarChart.data = chartData
         radarChart.animate(yAxisDuration: NSTimeInterval(1.4), easingOption: ChartEasingOption.EaseOutBack)
@@ -167,19 +134,19 @@ class CityViewController: UIViewController {
 extension CityViewController : UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        guard let f = self.forecastuples else { return 0 }
+        guard let f = viewModel.forecastuples else { return 0 }
         return f.count
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let f = self.forecastuples else { return 0 }
+        guard let f = viewModel.forecastuples else { return 0 }
         return f[section].2.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ForecastCellIdentifier", forIndexPath: indexPath) as! ForecastCell
         guard let _ = self.viewModel?.current.value else { return cell }
-        let t = self.forecastuples![indexPath.section]
+        let t = viewModel.forecastuples![indexPath.section]
         let f = t.2[indexPath.row]
         let speed = String(format: "%.2f", f.wind!.speed)
         let temperature = String(format: "%.1f", f.main!.temp)
@@ -213,11 +180,11 @@ extension CityViewController : UICollectionViewDataSource {
             cell = t
         case UICollectionElementKindSectionHeader :
             cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "DayCellIdentifier", forIndexPath: indexPath)
-            let forecastEntry = self.forecastuples?[indexPath.section].2[indexPath.row]
+            let forecastEntry = viewModel.forecastuples?[indexPath.section].2[indexPath.row]
             if let c = cell as? DayCell {
                 if let day = forecastEntry?.day {
                     c.text.text = day
-                    if let entries = self.forecastuples?[indexPath.section].2 where day == "TODAY" && entries.count < 3 {
+                    if let entries = viewModel.forecastuples?[indexPath.section].2 where day == "TODAY" && entries.count < 3 {
                         c.text.text = ""
                     }
                 }

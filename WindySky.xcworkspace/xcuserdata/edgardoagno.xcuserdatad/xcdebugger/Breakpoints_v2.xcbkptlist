@@ -2,4 +2,180 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WindySkyTests/WindySkyTests.swift"
+            timestampString = "491002697.34315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "testCityViewModelAsynchronously()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCityViewModelAsynchronously () -&gt; ()).(closure #1)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491000826.10664"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "2110">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCityViewModelAsynchronously () -&gt; ()).(closure #1).(implicit closure #12)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491000826.106996"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCityViewModelAsynchronously () -&gt; ()).(closure #1).(implicit closure #13)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491000826.107421"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WindySkyTests/WindySkyTests.swift"
+            timestampString = "491002697.34315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "testCityViewModelAsynchronously()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCityViewModelAsynchronously () -&gt; ()).(closure #1)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491000839.684727"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "5263">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCityViewModelAsynchronously () -&gt; ()).(closure #1).(implicit closure #20)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491000839.685168"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WindySkyTests/WindySkyTests.swift"
+            timestampString = "491002496.124618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "testCitiesViewModel()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.testCitiesViewModel () -&gt; ()"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491002142.029693"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "14863">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCitiesViewModel () -&gt; ()).(implicit closure #65)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491002142.030296"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WindySkyTests.WindySkyTests.(testCitiesViewModel () -&gt; ()).(implicit closure #66)"
+                  moduleName = "WindySkyTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edgardoagno/Documents/WindySky/WindySkyTests/WindySkyTests.swift"
+                  timestampString = "491002142.030635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "8">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

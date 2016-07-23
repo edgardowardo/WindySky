@@ -37,17 +37,3 @@ class Current : Object {
         return "id"
     }
 }
-
-extension Current {
-    var direction : Direction? {
-        get {
-            let deg = wind!.deg
-            let directioncode = Direction.fromDegree(deg).rawValue
-            if directioncode.characters.count > 0 {
-                return Direction(rawValue: directioncode)!
-            } else {
-                return nil
-            }
-        }
-    }
-}
