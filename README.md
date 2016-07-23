@@ -1,3 +1,5 @@
+![alt tag](https://github.com/edgardowardo/WindySky/blob/master/icons/ios/AppIcon.appiconset/Icon-App-76x76%403x.png)
+
 # WindySky
 
 Deployment Target : iOS 8.0
