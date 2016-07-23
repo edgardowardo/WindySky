@@ -13,14 +13,23 @@ class CitiesItemViewModel {
 
     var current : Current!
     var currentLocation : CLLocation?
+    var indexPath : NSIndexPath!
 
-    init(current : Current, currentLocation : CLLocation?) {
+    init(current : Current, currentLocation : CLLocation?, indexPath : NSIndexPath) {
         self.current = current
         self.currentLocation = currentLocation
+        self.indexPath = indexPath
     }
 
     var mainText : String {
         return self.current.name
+    }
+    
+    var iconName : String {
+        if indexPath.section > 0 {
+            return "icon-dot-fill"
+        }
+        return self.current.isFavourite ? "icon-superstar" : "icon-dot-fill"
     }
     
     private var location : CLLocation {

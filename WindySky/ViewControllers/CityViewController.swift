@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 import RealmSwift
 import Charts
 
@@ -74,14 +75,21 @@ class CityViewController: UIViewController {
         star.bounds = CGRectMake(0, 0, imageNormal.size.width, imageNormal.size.height)
         star.setImage(imageNormal, forState: .Normal)
         star.setImage(imageSelected, forState: .Selected)
-        star.addTarget(self, action: #selector(starPressed), forControlEvents: .TouchUpInside)
+
+        star.rx_tap
+            .asObservable()
+            .subscribeNext { (n) in
+                viewModel.toggleFavourite()
+            }.addDisposableTo(disposeBag)
+        
+        viewModel.isFavourite
+            .asObservable()
+            .bindTo(star.rx_selected)
+            .addDisposableTo(disposeBag)
 
         navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: star)], animated: true)
     }
     
-    func starPressed() {
-        star.selected = !star.selected
-    }
     
     func getSpeedName(speedMeterPerSecond speed : Double) -> String {
         switch speed {

@@ -146,16 +146,14 @@ class CitiesViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CitiesItemTableViewCell
         let c: Current
         if searchController.active && searchController.searchBar.text != "" {
             c = viewModel.filteredObjects.value[indexPath.section].1[indexPath.row]
         } else {
             c = viewModel.currentObjects.value[indexPath.section].1[indexPath.row]
         }
-        let vm = CitiesItemViewModel(current: c, currentLocation: location)
-        cell.textLabel!.text = vm.mainText
-        cell.detailTextLabel?.text = vm.detailText
+        cell.viewModel = CitiesItemViewModel(current: c, currentLocation: location, indexPath: indexPath)
         return cell
     }
     

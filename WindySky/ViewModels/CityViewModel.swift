@@ -16,6 +16,7 @@ class CityViewModel {
     var realm : Realm! = try? Realm()
     var disposeBag = DisposeBag()
     var current: Variable<Current?> = Variable(nil)
+    var isFavourite : Variable<Bool> = Variable(false)
     var hudDelegate : HudDelegate?
     private var cityid : Int
     
@@ -30,6 +31,13 @@ class CityViewModel {
         return ""
     }
     
+    func toggleFavourite() {
+        isFavourite.value = !isFavourite.value
+        try! realm.write {
+            current.value?.isFavourite = isFavourite.value
+        }
+    }
+    
     func refreshCity(withCallBack : (()->Void)? = nil ) {
         var current : Current? = nil
         if let first = realm.objects(Current).filter("id == \(self.cityid)").first {
@@ -39,6 +47,7 @@ class CityViewModel {
         // Current data is not stale. That is  it's less than half an hour, show this data.
         if let c = current, lastupdate = c.lastupdate where NSDate().timeIntervalSinceDate(lastupdate) / 3600 < 0.5 {
             self.current.value = c
+            self.isFavourite.value = c.isFavourite
         } else {
             self.hudDelegate?.showHud(text: "Searching...")
             
