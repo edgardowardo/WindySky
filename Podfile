@@ -3,6 +3,7 @@ use_frameworks!
 
 target 'WindySky' do
     pod 'RxSwift'
+    pod 'RxCocoa'
     pod 'Alamofire'
     pod 'RealmSwift'
     pod 'MBProgressHUD'
