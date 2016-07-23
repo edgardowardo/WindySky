@@ -30,7 +30,7 @@ class WindySkyTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    /*
+    
     func testSpotService() {
         
         try! realm.write({
@@ -53,7 +53,7 @@ class WindySkyTests: XCTestCase {
                 print("Error: \(error.localizedDescription)")
             }
         }
-    }*/
+    } 
     
     func testCitiesViewModel() {
         
@@ -64,10 +64,12 @@ class WindySkyTests: XCTestCase {
         vm.getCurrentObjects()
         
         XCTAssertEqual(vm.filteredObjects.value.count, 0)
-        XCTAssertEqual(vm.currentObjects.value.count, 1)
-        XCTAssertEqual(vm.currentObjects.value.first?.0, "RECENTS - 0")
+        XCTAssertEqual(vm.currentObjects.value.count, 2)
+        XCTAssertEqual(vm.currentObjects.value.first?.0, "FAVOURITES - 0")
         XCTAssertEqual(vm.currentObjects.value.first?.1.count, 0)
-        
+        XCTAssertEqual(vm.currentObjects.value.last?.0, "RECENTS - 0")
+        XCTAssertEqual(vm.currentObjects.value.last?.1.count, 0)
+
         //
         // Simulate position in London town!
         //
@@ -78,35 +80,41 @@ class WindySkyTests: XCTestCase {
         
         vm.getCurrentObjects()
         XCTAssertEqual(vm.filteredObjects.value.count, 0)
-        XCTAssertEqual(vm.currentObjects.value.count, 2)
-        XCTAssertEqual(vm.currentObjects.value.first?.0, "NEARBY - 13")
-        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 13)
+        XCTAssertEqual(vm.currentObjects.value.count, 3)
+        XCTAssertEqual(vm.currentObjects.value.first?.0, "FAVOURITES - 0")
+        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 0)
+        XCTAssertEqual(vm.currentObjects.value[1].0, "NEARBY - 13")
+        XCTAssertEqual(vm.currentObjects.value[1].1.count, 13)
         XCTAssertEqual(vm.currentObjects.value.last?.0, "RECENTS - 0")
-        
+    
         //
         // Filter the previous search with "Lon" among those previous 13
         //
         vm.getCurrentObjects("Lon", isFilter: true, isSearch: false)
-        XCTAssertEqual(vm.filteredObjects.value.count, 2)
-        XCTAssertEqual(vm.filteredObjects.value.first?.0, "NEARBY - 4")
-        XCTAssertEqual(vm.filteredObjects.value.first?.1.count, 4)
+        XCTAssertEqual(vm.filteredObjects.value.count, 3)
+        XCTAssertEqual(vm.filteredObjects.value.first?.0, "FAVOURITES - 0")
+        XCTAssertEqual(vm.filteredObjects.value.first?.1.count, 0)
+        XCTAssertEqual(vm.filteredObjects.value[1].0, "NEARBY - 4")
+        XCTAssertEqual(vm.filteredObjects.value[1].1.count, 4)
         XCTAssertEqual(vm.filteredObjects.value.last?.0, "RECENTS - 0")
-        if let first = vm.filteredObjects.value.first?.1.first {
+        if let first = vm.filteredObjects.value[1].1.first {
             XCTAssertEqual(first.name, "London")
         } else {
             XCTFail("London is not first!")
         }
         
-        XCTAssertEqual(vm.currentObjects.value.count, 2)
-        XCTAssertEqual(vm.currentObjects.value.first?.0, "NEARBY - 13")
-        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 13)
+        XCTAssertEqual(vm.currentObjects.value.count, 3)
+        XCTAssertEqual(vm.currentObjects.value.first?.0, "FAVOURITES - 0")
+        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 0)
+        XCTAssertEqual(vm.currentObjects.value[1].0, "NEARBY - 13")
+        XCTAssertEqual(vm.currentObjects.value[1].1.count, 13)
         XCTAssertEqual(vm.currentObjects.value.last?.0, "RECENTS - 0")
         
         //
         // Simulates the actual search button for "Lon"
         //
         vm.getCurrentObjects("Lon", isFilter: true, isSearch: true)
-        
+
         XCTAssertEqual(vm.filteredObjects.value.count, 1)
         XCTAssertEqual(vm.filteredObjects.value.first?.0, "RESULTS - 425")
         XCTAssertEqual(vm.filteredObjects.value.first?.1.count, 425)
@@ -116,9 +124,11 @@ class WindySkyTests: XCTestCase {
             XCTFail("London is not first!")
         }
         
-        XCTAssertEqual(vm.currentObjects.value.count, 2)
-        XCTAssertEqual(vm.currentObjects.value.first?.0, "NEARBY - 13")
-        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 13)
+        XCTAssertEqual(vm.currentObjects.value.count, 3)
+        XCTAssertEqual(vm.currentObjects.value.first?.0, "FAVOURITES - 0")
+        XCTAssertEqual(vm.currentObjects.value.first?.1.count, 0)
+        XCTAssertEqual(vm.currentObjects.value[1].0, "NEARBY - 13")
+        XCTAssertEqual(vm.currentObjects.value[1].1.count, 13)
         XCTAssertEqual(vm.currentObjects.value.last?.0, "RECENTS - 0")
     }
     

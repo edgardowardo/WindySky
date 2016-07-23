@@ -33,6 +33,15 @@ class CitiesViewModel {
             let results = Array(cities.map({ return cityFromSpot($0) }))
             currents.append(("RESULTS - \(results.count)", results))
         } else {
+            // Get favourite objects
+            var favourites = realm.objects(Current).filter("isFavourite == 1")
+            if let s = searchText {
+                favourites = favourites.filter("name contains '\(s)'")
+            }
+            favourites = favourites.sorted("lastupdate", ascending: false)
+            currents.append(("FAVOURITES - \(favourites.count)", Array(favourites)))
+            
+            // Get nearby objects
             if let loc = self.coordinate {
                 let nearbies = getNearbies(fromLocation: loc, andSearchText: searchText)
                 currents.append(("NEARBY - \(nearbies.count)", Array(nearbies)))
