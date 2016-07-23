@@ -12,5 +12,8 @@ target 'WindySky' do
 end
 
 target 'WindySkyTests' do
+    pod 'RxSwift'
+    pod 'RxCocoa'
+    pod 'Alamofire'
     pod 'RealmSwift'
 end
