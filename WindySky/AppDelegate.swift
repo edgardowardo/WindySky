@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(methodOfReceivedNotification_willloadSpotData), name: SpotService.Notification.Identifier.willloadSpotData, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(methodOfReceivedNotification_didloadSpotData), name: SpotService.Notification.Identifier.didloadSpotData, object: nil)
         
+        UISearchBar.appearance().barTintColor = UIColor.flatPeterRiverColor()
+        UISearchBar.appearance().tintColor = UIColor.whiteColor()
+        
         return true
     }
     

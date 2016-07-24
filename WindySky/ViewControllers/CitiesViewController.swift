@@ -54,6 +54,7 @@ class CitiesViewController: UITableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "windy_sky"))
         
         // Ask for current location and populate nearby spots
         if CLLocationManager.authorizationStatus() == .NotDetermined || CLLocationManager.locationServicesEnabled() {
