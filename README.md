@@ -6,7 +6,7 @@ Using Swift 2.2 on Xcode 7.3.1
 
 # The Requirements
 
-Build the [app requirements](https://github.com/edgardowardo/WeatherAlert/blob/master/Weather Alert UT - Sky.docx) in a week, as specified in the word document.
+Build the [app requirements](https://github.com/edgardowardo/WindySky/blob/master/weather alert UT.docx) in a couple of days, as specified in the word document.
 
 # Development Walkthrough 
 
