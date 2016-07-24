@@ -316,6 +316,7 @@
 				TargetAttributes = {
 					772BEA431D414F9100BAF8F2 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = LGLDN3729L;
 					};
 					772BEA591D414F9100BAF8F2 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -617,6 +618,7 @@
 			baseConfigurationReference = DF282D3EF585419BF5EDF974 /* Pods-WindySky.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WindySky/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -630,6 +632,7 @@
 			baseConfigurationReference = A5C01C27ED3388ECE57BBDAB /* Pods-WindySky.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WindySky/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
