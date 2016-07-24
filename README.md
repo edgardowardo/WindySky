@@ -1,4 +1,4 @@
-![alt tag](https://github.com/edgardowardo/WindySky/blob/master/icons/ios/AppIcon.appiconset/Icon-App-76x76%403x.png)
+![alt tag](https://raw.githubusercontent.com/edgardowardo/WindySky/master/icons/windy_sky%40launch.png)
 
 # WindySky
 
