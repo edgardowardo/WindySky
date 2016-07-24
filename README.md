@@ -1,6 +1,6 @@
 ![alt tag](https://raw.githubusercontent.com/edgardowardo/WindySky/master/icons/windy_sky%40launch.png)
 
-# WindySky
+# 
 
 Deployment Target : iOS 8.0
 
