@@ -1,8 +1,6 @@
 ![alt tag](https://raw.githubusercontent.com/edgardowardo/WindySky/master/icons/windy_sky%40launch.png)
 
-# 
-
-Deployment Target : iOS 8.0
+Deployment Target : iOS 8.0 and up
 
 Using Swift 2.2 on Xcode 7.3.1
 
@@ -16,7 +14,7 @@ Why Alamofire? There is an existing OpenWeatherMapAPI why not use it?  OpenWeath
 
 Why Charts? It's the best and easiest way to plot a radar chart.
 
-There are no XCUI test because there is an issue in UISearchController result-set being voice-over in-accessible. Since XCUI is based on UI elements being voice over accessible, testing is impossible unless the whole search function is re-written by not using UISearchController. This holds true to Apple specific apps such as Mail that employs UISearchController. Even WhatsApp search bar results is voice over in-accessible and therefore XCUI un-testable! Functional tests are provided as described below.
+There are no XCUI test because there is an issue in UISearchController result-set being voice-over in-accessible. Since XCUI is based on UI elements being voice over accessible, testing is impossible unless the whole search function is re-written by not using UISearchController. This holds true to Apple specific apps such as Mail that employs UISearchController. Even WhatsApp search bar results is voice over in-accessible and therefore XCUI un-testable! Having said this, full functional tests are provided as described below.
 
 Why MVVM (Model-View-ViewModel) pattern? This pattern forces development to create an extra layer (ViewModel) independent of UI frameworks. This makes this highly maintainable, since you know where exactly are the functional logic in the code, and not muddled within the MVC aka Massive-View-Controller. Another reason to use MVVM is that the ViewModel layer can easily be functionally tested. Having said this, there are five functional tests. Firstly testing SpotService which loads all spot data. Testing CitiesViewModel which queries the spots anywhere in the world by string, producing the cityid with an un-ambiguous result. And eventually querying asynchronously to the server to show more recent data and favourites. Testing CityViewModel asynchronously closely inspects end-to-end tests from when a spot is selected. Testing negative as well as positive result for the OpenWeatherMapService.
 
